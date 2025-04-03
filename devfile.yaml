@@ -49,3 +49,15 @@ commands:
           kill -15 ${node_server_pids} &>/dev/null && echo 'Done.'
       group:
         kind: run
+  - id: add-default-extensions
+    exec:
+      # put your tooling container name here
+      component: runtime
+      commandLine: |
+        # download regular binary
+        curl https://open-vsx.org/api/atlassian/atlascode/3.0.10/file/atlassian.atlascode-3.0.10.vsix --location -o /tmp/atlassian.atlascode-3.0.10.vsix
+        curl https://open-vsx.org/api/snowflake/snowflake-vsc/1.9.1/file/snowflake.snowflake-vsc-1.9.1.vsix --location -o /tmp/snowflake.snowflake-vsc-1.9.1.vsix
+
+events:
+  postStart:
+    - add-default-extensions        
